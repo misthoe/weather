@@ -1,9 +1,9 @@
-import pytest
 from unittest.mock import patch, Mock
 
-from services.weather_service import WeatherService
-
+import pytest
 from fastapi.exceptions import HTTPException
+
+from services.weather_service import WeatherService
 
 
 # Test case for successful weather data retrieval

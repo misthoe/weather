@@ -14,4 +14,4 @@ class GeocoderService:
         if location:
             return location.latitude, location.longitude
         else:
-            raise ValueError("Not a valid city")
+            raise ValueError(f"{city} is not a valid city")

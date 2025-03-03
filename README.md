@@ -23,14 +23,13 @@ On Windows command prompt: myenv\Scripts\activate
 On Windows Powershell:.\myenv\Scripts\Activate.ps1
 
 After activation of venv the cmd prompt should look like this:
-user@hostname:~/path/to/your/project-directory$ (linux/macOS) before activation
+
 (myenv) user@hostname:~/path/to/your/project-directory$ (linux/macOS) after activation
 
-PS C:\Users\YourName\path\to\your\project-directory> (Powershell before venv activation)
 (myenv) PS C:\Users\YourName\path\to\your\project-directory> (Powershell after venv activation)
 
-To install the project requirments once a venv is up:
-(myenv) user@hostname:~/path/to/your/project-directory$ pip install -r requirments.txt
+To install the project requirements once a venv is up:
+(myenv) user@hostname:~/path/to/your/project-directory$ pip install -r requirements.txt
 
 To run application: 
 (myenv) user@hostname:~/path/to/your/project-directory$ uvicorn main:app --reload

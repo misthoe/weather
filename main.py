@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 
 from services.geocoder_service import GeocoderService
-from services.weather_service import WeatherService
+from weather_client import WeatherClient
 
 from models.weather import WeatherResponse
 
@@ -13,7 +13,7 @@ async def get_geocoder():
 
 
 async def get_weather_service():
-    return WeatherService()
+    return WeatherClient()
 
 
 @app.get("/weather", response_model=WeatherResponse)
@@ -33,5 +33,5 @@ async def get_city_weather(city_name: str, geocoder_service: GeocoderService = D
             city=city_name,
             coordinates={"lat": lat, "lon": lon}
         )
-    except HTTPException as e:
-        raise e
+    except HTTPException:
+        raise HTTPException

@@ -3,7 +3,7 @@ from unittest.mock import patch, Mock
 import pytest
 from fastapi.exceptions import HTTPException
 
-from services.weather_service import WeatherService
+from weather_client import WeatherClient
 
 
 # Test case for successful weather data retrieval
@@ -39,7 +39,7 @@ def test_get_weather_success(mock_get):
     # Testing the method
     lat = 51.5074
     lon = -0.1278
-    temperature, description = WeatherService.get_weather(lat, lon)
+    temperature, description = WeatherClient.get_weather(lat, lon)
 
     # Assertions
     assert temperature == float(23.5)
@@ -61,7 +61,7 @@ def test_get_weather_api_error(mock_get):
 
     # Test if HTTPException is raised when the API status code is not 200
     with pytest.raises(HTTPException):
-        WeatherService.get_weather(51.5074, -0.1278)
+        WeatherClient.get_weather(51.5074, -0.1278)
 
 
 # Test case for missing required fields in response
@@ -85,4 +85,4 @@ def test_get_weather_invalid_data(mock_get):
 
     # Test if HTTPException is raised when essential data is missing in the response
     with pytest.raises(HTTPException):
-        WeatherService.get_weather(51.5074, -0.1278)
+        WeatherClient.get_weather(51.5074, -0.1278)

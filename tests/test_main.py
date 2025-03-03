@@ -4,7 +4,7 @@ import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from main import app, GeocoderService, WeatherService  # Import your FastAPI app and services
+from main import app, GeocoderService, WeatherClient  # Import your FastAPI app and services
 
 
 @pytest.fixture
@@ -18,7 +18,7 @@ def geocoder_mock():
 @pytest.fixture
 def weather_service_mock():
     """Fixture to mock WeatherService."""
-    mock = MagicMock(WeatherService)
+    mock = MagicMock(WeatherClient)
     mock.get_weather.return_value = (25, "Clear sky")  # Example: temperature and description
     return mock
 
@@ -28,7 +28,7 @@ def client(geocoder_mock, weather_service_mock):
     """Fixture to create a test client with mocked dependencies."""
     # Override the dependencies of the FastAPI app
     app.dependency_overrides[GeocoderService] = geocoder_mock
-    app.dependency_overrides[WeatherService] = weather_service_mock
+    app.dependency_overrides[WeatherClient] = weather_service_mock
 
     # Return a TestClient instance for making requests
     return TestClient(app)

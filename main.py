@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, HTTPException, Depends
 
 from services.geocoder_service import GeocoderService
@@ -18,7 +20,7 @@ async def get_weather_service():
 
 @app.get("/weather", response_model=WeatherResponse)
 async def get_city_weather(city_name: str, geocoder_service: GeocoderService = Depends(get_geocoder),
-                           weather_service=Depends(get_weather_service)):
+                           weather_service=Depends(get_weather_service)) -> WeatherResponse:
     try:
         # Step 1: Get the coordinates of the city
         lat, lon = geocoder_service.get_coordinates_by_city(city_name)
@@ -33,5 +35,6 @@ async def get_city_weather(city_name: str, geocoder_service: GeocoderService = D
             city=city_name,
             coordinates={"lat": lat, "lon": lon}
         )
-    except HTTPException:
-        raise HTTPException
+    except HTTPException as e:
+        logging.exception(f"Something went wrong when trying to get weather for city {city_name}")
+        raise e

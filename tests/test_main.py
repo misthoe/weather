@@ -64,6 +64,11 @@ def test_get_city_weather(client):
 
 def test_get_city_weather_not_found(client, geocoder_mock, weather_service_mock):
     """Test for the case when city coordinates cannot be found."""
+    # Mock geocoding to raise an HTTPException for non-existent city
     geocoder_mock.get_coordinates_by_city.side_effect = HTTPException(status_code=404, detail="City not found")
-    with pytest.raises(ValueError):
-        client.get("/weather?city_name=NonExistentCity")
+
+    response = client.get("/weather?city_name=NonExistentCity")
+
+    # Check that the response status is 404 and error message is returned
+    assert response.status_code == 404
+    assert response.json() == {"detail": "City not found"}

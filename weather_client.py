@@ -1,6 +1,4 @@
-import httpx
 import requests
-
 from fastapi import HTTPException
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry

@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock, patch
 import pytest
-from fastapi import HTTPException
 from fastapi.testclient import TestClient
 from main import app, GeocoderService, WeatherClient  # Import your FastAPI app and services
 

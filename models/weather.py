@@ -8,4 +8,5 @@ class WeatherResponse(BaseModel):
     temperature: float
     weather_description: str
     coordinates: Dict[str, float]
+    wind_speed: float
 

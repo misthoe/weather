@@ -31,10 +31,11 @@ class WeatherClient:
         try:
             current_weather = weather_data['properties']['timeseries'][0]['data']['instant']['details']
             temperature = current_weather['air_temperature']
+            wind_speed = current_weather['wind_speed']
             description = weather_data['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code']
-        except KeyError:
+        except HTTPException:
             raise HTTPException(status_code=500, detail=f"Error fetching weather data, "
                                                         f"here is some info of what might"
                                                         f" have gone wrong:{response.text}")
 
-        return temperature, description
+        return temperature, description, wind_speed

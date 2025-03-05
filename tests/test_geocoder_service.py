@@ -15,3 +15,9 @@ def test_get_coordinates(geocoder):
     assert len(coordinates) == 2
     assert coordinates[0] == float(59.3251172)  # Expected latitude
     assert coordinates[1] == float(18.0710935)  # Expected longitude
+
+
+def test_get_coordinates_by_city_not_valid_city(geocoder):
+    """Test for the case when city is NonExistent"""
+    with pytest.raises(ValueError):
+        geocoder.get_coordinates_by_city("NonExistentCity")

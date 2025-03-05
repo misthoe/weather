@@ -31,14 +31,15 @@ async def get_city_weather(city_name: str, geocoder_service: GeocoderService = D
 
         # Step 2: Get the weather data for the city
         if lat is not None and lon is not None:
-            temperature, description = weather_service.get_weather(lat, lon)
+            temperature, description, wind_speed = weather_service.get_weather(lat, lon)
 
             # Step 3: Return the response in the desired format
             return WeatherResponse(
                 temperature=temperature,
                 weather_description=description,
                 city=city_name,
-                coordinates={"lat": lat, "lon": lon}
+                coordinates={"lat": lat, "lon": lon},
+                wind_speed=wind_speed
             )
     except HTTPException as e:
         logging.exception(f"Something went wrong when trying to get weather for city {city_name}")

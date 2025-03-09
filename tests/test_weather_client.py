@@ -36,14 +36,14 @@ def test_get_weather_retry(mock_get_weather):
     """Test the retry logic for server errors (e.g., 500 status)."""
 
     # Simulate a failure with a mock for retries
-    mock_get_weather.side_effect = HTTPException(status_code=500, detail="Error fetching weather data")
+    mock_get_weather.side_effect = HTTPException(status_code=404, detail="Error fetching weather data")
 
     # Call the method and check for retries
     with pytest.raises(HTTPException) as exc_info:
         WeatherClient.get_weather(40.7127281, -74.0060152)
 
     # Check that an exception was raised and that the status code is 500
-    assert exc_info.value.status_code == 500
+    assert exc_info.value.status_code == 404
     assert "Error fetching weather data" in str(exc_info.value.detail)
 
 

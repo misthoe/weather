@@ -54,10 +54,9 @@ def test_get_city_weather(client):
         # Check that the response matches the mocked response
         assert response == mocked_response  # Check if the entire response matches
 
-        # Also, check that the values returned are correct per your original assertions
         data = response
         assert data["city"] == "New York"
         assert data["coordinates"] == {"lat": 40.7127281, "lon": -74.0060152}
-        assert data["temperature"] == 25  # Corrected to match mocked value
-        assert data["weather_description"] == "clearsky_day"  # Corrected to match mocked value
+        assert data["temperature"] == 25
+        assert data["weather_description"] == "clearsky_day"
         assert data["wind_speed"] == float(5.6)

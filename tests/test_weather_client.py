@@ -51,12 +51,12 @@ def test_get_weather_key_error(mock_get_weather):
     """Test when the response is missing expected keys."""
 
     # Simulate a response with missing keys (mocking)
-    mock_get_weather.side_effect = HTTPException(status_code=500, detail="Error fetching weather data")
+    mock_get_weather.side_effect = HTTPException(status_code=404, detail="Error fetching weather data")
 
     # Call the method and check for an error due to missing keys
     with pytest.raises(HTTPException) as exc_info:
         WeatherClient.get_weather(40.7127281, -74.0060152)
 
     # Ensure we get the expected exception
-    assert exc_info.value.status_code == 500
+    assert exc_info.value.status_code == 404
     assert "Error fetching weather data" in str(exc_info.value.detail)

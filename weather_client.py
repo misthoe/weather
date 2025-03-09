@@ -34,7 +34,7 @@ class WeatherClient:
             wind_speed = current_weather['wind_speed']
             description = weather_data['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code']
         except HTTPException:
-            raise HTTPException(status_code=500, detail=f"Error fetching weather data, "
+            raise HTTPException(status_code=404, detail=f"Error fetching weather data, "
                                                         f"here is some info of what might"
                                                         f" have gone wrong:{response.text}")
 
